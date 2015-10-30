@@ -124,30 +124,6 @@ func GetConfig(yamlPath string) (Config, error) {
 	return config, nil
 }
 
-// TODO: add more tests
-func (c *Config) Test() error {
-	f, err := os.Open(c.SECRET_KEY)
-	if err != nil {
-		return err
-	}
-
-	file, err := f.Stat()
-	if err != nil {
-		return err
-	}
-
-	fileLenght := file.Size()
-	if fileLenght == 0 {
-		return errors.New("secret_key is 0 bytes")
-	}
-
-	if fileLenght < 20 {
-		return errors.New("secret_key is less than 20 bytes")
-	}
-
-	return nil
-}
-
 func CheckErr(err error, msg string) {
 	if err != nil {
 		log.Fatalln(msg, err)

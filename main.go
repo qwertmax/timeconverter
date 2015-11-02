@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/qwertmax/timeconverter/cfg"
 	"github.com/qwertmax/timeconverter/db"
+	"github.com/qwertmax/timeconverter/middleware"
 	"github.com/qwertmax/timeconverter/route"
 	"runtime"
 )
@@ -30,6 +31,7 @@ func main() {
 
 	// create routing
 	r := gin.Default()
+	r.Use(middleware.CORSMiddleware())
 
 	//Middleware
 	r.Use(db.DB(&database))

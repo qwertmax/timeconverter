@@ -86,6 +86,7 @@ func (db *Database) Init(conf cfg.Config) {
 
 		dbHandler.CreateTable(&model.User{})
 		dbHandler.CreateTable(&model.City{})
+		dbHandler.Model(&model.User{}).AddUniqueIndex("idx_email", "email")
 
 		return
 	}

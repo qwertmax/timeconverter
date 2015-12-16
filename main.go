@@ -33,17 +33,27 @@ func main() {
 	r := gin.Default()
 	r.Use(middleware.CORSMiddleware())
 
+	authorized.Use(middleware.AuthRequired())
+	{
+		authorized.GET("/users", route.UsersList)
+		authorized.GET("/user/:id", route.UserGet)
+		authorized.POST("/user", route.UserCreate)
+		authorized.PUT("/user/:id", route.UserUpdate)
+		authorized.DELETE("/user/:id", route.UserDelete)
+
+	}
+
 	//Middleware
 	r.Use(db.DB(&database))
 
 	//routings
 	r.GET("/", route.Main)
 
-	r.GET("/users", route.UsersList)
-	r.GET("/user/:id", route.UserGet)
-	r.POST("/user", route.UserCreate)
-	r.PUT("/user/:id", route.UserUpdate)
-	r.DELETE("/user/:id", route.UserDelete)
+	// r.GET("/users", route.UsersList)
+	// r.GET("/user/:id", route.UserGet)
+	// r.POST("/user", route.UserCreate)
+	// r.PUT("/user/:id", route.UserUpdate)
+	// r.DELETE("/user/:id", route.UserDelete)
 
 	// start service
 	r.Run(":" + config.APP_PORT)

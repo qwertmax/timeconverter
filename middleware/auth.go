@@ -4,9 +4,8 @@
 package middleware
 
 import (
-	"github.com/autocrm/api/model"
-	"github.com/autocrm/api/route"
 	"github.com/gin-gonic/gin"
+	"github.com/qwertmax/timeconverter/model"
 )
 
 // middleware witch require valid token, otherwise microservice return 401 as result.
@@ -48,66 +47,66 @@ func AuthRequired() gin.HandlerFunc {
 	}
 }
 
-func BasicAuth() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if len(c.Request.Header["Authorization"]) == 0 {
-			// c.AbortWithError(403, errors.New("The API key is invalid."))
-			c.JSON(401, model.Error{
-				Type:    "the_api_key_is_invalid",
-				Message: "The API key is invalid.",
-			})
-			c.AbortWithStatus(401)
-			return
-		}
+// func BasicAuth() gin.HandlerFunc {
+// 	return func(c *gin.Context) {
+// 		if len(c.Request.Header["Authorization"]) == 0 {
+// 			// c.AbortWithError(403, errors.New("The API key is invalid."))
+// 			c.JSON(401, model.Error{
+// 				Type:    "the_api_key_is_invalid",
+// 				Message: "The API key is invalid.",
+// 			})
+// 			c.AbortWithStatus(401)
+// 			return
+// 		}
 
-		key, err := route.ParseAuthKey(c)
-		if err != nil {
-			// c.AbortWithError(403, errors.New("Error Parse key."))
-			c.JSON(401, model.Error{
-				Type:    "error_parse_key",
-				Message: "Error Parse key",
-			})
-			c.AbortWithStatus(401)
-			return
-		}
+// 		key, err := route.ParseAuthKey(c)
+// 		if err != nil {
+// 			// c.AbortWithError(403, errors.New("Error Parse key."))
+// 			c.JSON(401, model.Error{
+// 				Type:    "error_parse_key",
+// 				Message: "Error Parse key",
+// 			})
+// 			c.AbortWithStatus(401)
+// 			return
+// 		}
 
-		Db := route.GetDB(c)
-		apikey := model.ApiKey{}
+// 		Db := route.GetDB(c)
+// 		apikey := model.ApiKey{}
 
-		var num int
-		Db.Where(&model.ApiKey{
-			Name: key,
-		}).First(&apikey).Count(&num)
+// 		var num int
+// 		Db.Where(&model.ApiKey{
+// 			Name: key,
+// 		}).First(&apikey).Count(&num)
 
-		if num == 0 {
-			// c.AbortWithError(403, errors.New("The API key is not found."))
-			c.JSON(401, model.Error{
-				Type:    "the_api_key_is_not_found",
-				Message: "The API key is not found",
-			})
-			c.AbortWithStatus(401)
-			return
-		}
+// 		if num == 0 {
+// 			// c.AbortWithError(403, errors.New("The API key is not found."))
+// 			c.JSON(401, model.Error{
+// 				Type:    "the_api_key_is_not_found",
+// 				Message: "The API key is not found",
+// 			})
+// 			c.AbortWithStatus(401)
+// 			return
+// 		}
 
-		if apikey.HasBegunWorking() {
-			c.JSON(401, model.Error{
-				Type:    "api_key_havent_begun_working",
-				Message: "API key haven't begun working",
-			})
-			c.AbortWithStatus(401)
-			return
-		}
+// 		if apikey.HasBegunWorking() {
+// 			c.JSON(401, model.Error{
+// 				Type:    "api_key_havent_begun_working",
+// 				Message: "API key haven't begun working",
+// 			})
+// 			c.AbortWithStatus(401)
+// 			return
+// 		}
 
-		if apikey.HasExpired() {
-			c.JSON(401, model.Error{
-				Type:    "api_key_has_expired",
-				Message: "API Key has expired",
-			})
-			c.AbortWithStatus(401)
-			return
-		}
+// 		if apikey.HasExpired() {
+// 			c.JSON(401, model.Error{
+// 				Type:    "api_key_has_expired",
+// 				Message: "API Key has expired",
+// 			})
+// 			c.AbortWithStatus(401)
+// 			return
+// 		}
 
-		c.Set("key_id", apikey.ID)
-		c.Next()
-	}
-}
+// 		c.Set("key_id", apikey.ID)
+// 		c.Next()
+// 	}
+// }

@@ -33,6 +33,10 @@ func main() {
 	r := gin.Default()
 	r.Use(middleware.CORSMiddleware())
 
+	//Middleware
+	r.Use(db.DB(&database))
+
+	authorized := r.Group("/")
 	authorized.Use(middleware.AuthRequired())
 	{
 		authorized.GET("/users", route.UsersList)
@@ -42,9 +46,6 @@ func main() {
 		authorized.DELETE("/user/:id", route.UserDelete)
 
 	}
-
-	//Middleware
-	r.Use(db.DB(&database))
 
 	//routings
 	r.GET("/", route.Main)

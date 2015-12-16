@@ -25,15 +25,17 @@ import (
 // 		TOKEN_LIFETIME 		- time in sedonds for vailid token.
 //		ACCESS_CONTROL_ALLOW_ORIGIN	- this option for CORS requests see https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 type Config struct {
-	APP_PORT     string `yaml:"app_port"`
-	DB_USERNAME  string `yaml:"db_username"`
-	DB_PASSWORD  string `yaml:"db_password"`
-	DB_NAME      string `yaml:"db_name"`
-	DB_ADDRESS   string `yaml:"db_address"`
-	DB_SSLMODE   string `yaml:"db_ssh_mode"`
-	DB_PORT      string `yaml:"db_port"`
-	RELEASE_MODE bool   `yaml:"release_mode"`
-	DB_LOG       bool   `yaml:"db_log"`
+	APP_PORT       string `yaml:"app_port"`
+	DB_USERNAME    string `yaml:"db_username"`
+	DB_PASSWORD    string `yaml:"db_password"`
+	DB_NAME        string `yaml:"db_name"`
+	DB_ADDRESS     string `yaml:"db_address"`
+	DB_SSLMODE     string `yaml:"db_ssh_mode"`
+	DB_PORT        string `yaml:"db_port"`
+	RELEASE_MODE   bool   `yaml:"release_mode"`
+	SECRET_KEY     string `yaml:"secret_key"`
+	TOKEN_LIFETIME int64  `yaml:"token_lifetime"`
+	DB_LOG         bool   `yaml:"db_log"`
 }
 
 // initialize confi, load and perse it, or user defaukr values.
@@ -48,15 +50,17 @@ func Init() Config {
 		CheckErr(err, "os.Create:")
 		defer file.Close()
 		config := Config{
-			APP_PORT:     "3000",
-			DB_USERNAME:  "oddsmaker",
-			DB_PASSWORD:  "1",
-			DB_NAME:      "oddsmaker",
-			DB_ADDRESS:   "192.168.99.100",
-			DB_SSLMODE:   "SSLMode",
-			DB_PORT:      "5432",
-			RELEASE_MODE: false,
-			DB_LOG:       false,
+			APP_PORT:       "3000",
+			DB_USERNAME:    "oddsmaker",
+			DB_PASSWORD:    "1",
+			DB_NAME:        "oddsmaker",
+			DB_ADDRESS:     "192.168.99.100",
+			DB_SSLMODE:     "SSLMode",
+			DB_PORT:        "5432",
+			RELEASE_MODE:   false,
+			SECRET_KEY:     "jwt.secret.key",
+			TOKEN_LIFETIME: 10,
+			DB_LOG:         false,
 		}
 
 		data, err := json.MarshalIndent(config, "", "    ")

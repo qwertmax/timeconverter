@@ -6,8 +6,8 @@ package model
 import (
 	"errors"
 	"fmt"
-	"github.com/autocrm/api/cfg"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/qwertmax/timeconverter/cfg"
 	"io/ioutil"
 	"os"
 	"time"

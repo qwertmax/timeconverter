@@ -56,6 +56,8 @@ POST /user
 }
 ```
 
+## Update User
+
 PUT /user/:id
 
 ```json
@@ -66,6 +68,6 @@ PUT /user/:id
 }
 ```
 
-$$ Remove User
+## Remove User
 
 DELETE /user/:id

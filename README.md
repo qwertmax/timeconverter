@@ -2,13 +2,13 @@ Time Converter API
 
 http://s.q-man.ru:3000/users
 
-## Users
+## User List
 
 ```bash 
 GET /users
 ```
 
-```bash
+```json
 [{
 	id: 12,
 	login: "123",
@@ -24,9 +24,23 @@ GET /users
 }]
 ```
 
-## User
+## Get User
 
+```bash
 GET /user/:id
+```
+
+http://s.q-man.ru:3000/user/12
+
+```json
+{
+	id: 12,
+	login: "123",
+	password: "1",
+	email: "StanleeLOD@gmail.com",
+	cities: null
+}
+```
 
 POST /user
 

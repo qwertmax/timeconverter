@@ -58,4 +58,14 @@ POST /user
 
 PUT /user/:id
 
+```json
+{
+	login: "test",
+	password: "test",
+	email: "email@example.com"
+}
+```
+
+$$ Remove User
+
 DELETE /user/:id

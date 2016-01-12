@@ -8,6 +8,8 @@ http://s.q-man.ru:3000/users
 GET /users
 ```
 
+http://s.q-man.ru:3000/user/12
+
 ```json
 [{
 	id: 12,
@@ -42,7 +44,17 @@ http://s.q-man.ru:3000/user/12
 }
 ```
 
+## Create User
+
 POST /user
+
+```json
+{
+	login: "test",
+	password: "test",
+	email: "email@example.com"
+}
+```
 
 PUT /user/:id
 

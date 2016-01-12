@@ -8,7 +8,7 @@ http://s.q-man.ru:3000/
 GET /users
 ```
 
-http://s.q-man.ru:3000/user/12
+http://s.q-man.ru:3000/users
 
 ```json
 [{

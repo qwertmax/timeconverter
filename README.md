@@ -1,6 +1,6 @@
-Time Converter API
+# Time Converter API
 
-http://s.q-man.ru:3000/users
+http://s.q-man.ru:3000/
 
 ## User List
 

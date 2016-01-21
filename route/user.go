@@ -118,3 +118,32 @@ func UserDelete(c *gin.Context) {
 		"Message": "User was deleted successfully",
 	})
 }
+
+func UserLogin(c *gin.Context) {
+	var userLogin model.Login
+	err := c.BindJSON(&userLogin)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"status":  "error",
+			"Message": err.Error(),
+		})
+		return
+	}
+
+	Db := GetDB(c)
+
+	var user model.User
+	err = Db.Where(model.User{
+		Login:    userLogin.Login,
+		Password: userLogin.Password,
+	}).First(&user).Error
+	if err != nil {
+		c.JSON(500, gin.H{
+			"status":  "error",
+			"Message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, user)
+}

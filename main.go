@@ -36,16 +36,16 @@ func main() {
 	//Middleware
 	r.Use(db.DB(&database))
 
-	// authorized := r.Group("/auth")
-	// authorized.Use(middleware.AuthRequired())
-	// {
-	// 	authorized.GET("/users", route.UsersList)
-	// 	authorized.GET("/user/:id", route.UserGet)
-	// 	authorized.POST("/user", route.UserCreate)
-	// 	authorized.PUT("/user/:id", route.UserUpdate)
-	// 	authorized.DELETE("/user/:id", route.UserDelete)
+	authorized := r.Group("/auth")
+	authorized.Use(middleware.AuthRequired())
+	{
+		authorized.GET("/users", route.UsersList)
+		authorized.GET("/user/:id", route.UserGet)
+		authorized.POST("/user", route.UserCreate)
+		authorized.PUT("/user/:id", route.UserUpdate)
+		authorized.DELETE("/user/:id", route.UserDelete)
 
-	// }
+	}
 
 	//routings
 	r.GET("/", route.Main)
@@ -55,6 +55,8 @@ func main() {
 	r.POST("/user", route.UserCreate)
 	r.PUT("/user/:id", route.UserUpdate)
 	r.DELETE("/user/:id", route.UserDelete)
+
+	r.POST("/user/login", route.UserLogin)
 
 	// start service
 	r.Run(":" + config.APP_PORT)

@@ -82,3 +82,18 @@ POST /user/login
 	login: "test",
 	password: "test"
 }
+```
+
+Response 
+
+```json
+{
+    "token": "eyJhbGciOiJ...",
+    "user": {
+        "id": 1,
+        "login": "test",
+        "password": "test",
+        "email": "test@example.com"
+    }
+}
+```

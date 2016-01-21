@@ -71,3 +71,14 @@ PUT /user/:id
 ## Remove User
 
 DELETE /user/:id
+
+
+## Auth
+
+POST /user/login
+
+```json
+{
+	login: "test",
+	password: "test"
+}

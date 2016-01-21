@@ -1,6 +1,7 @@
 package route
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/qwertmax/timeconverter/model"
 )
@@ -145,5 +146,8 @@ func UserLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, user)
+	c.JSON(200, gin.H{
+		"user":  user,
+		"token": model.TokenGenerate(user.Login, fmt.Sprintf("%d", user.ID)),
+	})
 }
